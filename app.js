@@ -204,6 +204,10 @@ function setLocationStatus(message, isError = false) {
   locationStatus.classList.toggle("status-error", isError);
 }
 
+function isSudanesePlace(place) {
+  return place.address?.country_code?.toLowerCase() === "sd";
+}
+
 async function lookupLocation(query) {
   if (!query.trim()) {
     setLocationStatus("أدخل اسم مدينة أو منطقة أولًا.", true);
@@ -213,7 +217,13 @@ async function lookupLocation(query) {
 
   searchButton.disabled = true;
   setLocationStatus("جارٍ البحث عن الموقع…");
-  const params = new URLSearchParams({ format: "jsonv2", limit: "1", q: query.trim() });
+  const params = new URLSearchParams({
+    format: "jsonv2",
+    limit: "1",
+    addressdetails: "1",
+    countrycodes: "sd",
+    q: query.trim(),
+  });
 
   try {
     const response = await fetch(`https://nominatim.openstreetmap.org/search?${params}`, {
@@ -221,9 +231,9 @@ async function lookupLocation(query) {
     });
     if (!response.ok) throw new Error(`تعذر البحث عن الموقع (${response.status}).`);
     const places = await response.json();
-    if (!places.length) {
+    if (!places.length || !isSudanesePlace(places[0])) {
       currentLocation = null;
-      setLocationStatus("لم نعثر على هذا المكان. جرّب كتابة اسم المدينة والبلد.", true);
+      setLocationStatus("ابحث عن مدينة أو منطقة داخل السودان فقط.", true);
       weatherPanel.hidden = true;
       return;
     }
@@ -297,15 +307,41 @@ useLocationButton.addEventListener("click", () => {
   setLocationStatus("بانتظار إذن الوصول إلى موقعك…");
   navigator.geolocation.getCurrentPosition(
     async ({ coords }) => {
-      currentLocation = {
-        latitude: coords.latitude,
-        longitude: coords.longitude,
-        name: "موقعك الحالي",
-      };
-      locationInput.value = currentLocation.name;
-      setLocationStatus("تم تحديد موقعك.");
-      useLocationButton.disabled = false;
-      await loadWeather(currentLocation);
+      setLocationStatus("جارٍ التحقق من أن موقعك داخل السودان…");
+      const params = new URLSearchParams({
+        format: "jsonv2",
+        addressdetails: "1",
+        zoom: "3",
+        lat: String(coords.latitude),
+        lon: String(coords.longitude),
+      });
+
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?${params}`, {
+          headers: { Accept: "application/json" },
+        });
+        if (!response.ok) throw new Error(`تعذر التحقق من موقعك (${response.status}).`);
+        const place = await response.json();
+        if (!isSudanesePlace(place)) {
+          currentLocation = null;
+          weatherPanel.hidden = true;
+          setLocationStatus("هذه الخدمة متاحة للمواقع داخل السودان فقط.", true);
+          return;
+        }
+
+        currentLocation = {
+          latitude: coords.latitude,
+          longitude: coords.longitude,
+          name: "موقعك داخل السودان",
+        };
+        locationInput.value = currentLocation.name;
+        setLocationStatus("تم تحديد موقعك داخل السودان.");
+        await loadWeather(currentLocation);
+      } catch (error) {
+        setLocationStatus(error instanceof Error ? error.message : "تعذر التحقق من موقعك.", true);
+      } finally {
+        useLocationButton.disabled = false;
+      }
     },
     (error) => {
       useLocationButton.disabled = false;
