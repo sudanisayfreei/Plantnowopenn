@@ -1,0 +1,230 @@
+---
+layout: null
+title: ازرع الآن
+description: دليل إرشادي لاختيار محاصيل مناسبة للزراعة حسب الشهر والتربة والموقع.
+---
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f7ef">
+    <meta
+      name="description"
+      content="دليل إرشادي لاختيار محاصيل مناسبة للزراعة حسب الشهر والتربة والموقع."
+    >
+    <title>ازرع الآن | دليلك الموسمي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="ازرع الآن - الصفحة الرئيسية">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>ازرع<span class="brand-light">الآن</span></span>
+      </a>
+      <a class="topbar-link" href="#how-it-works">كيف يعمل؟ <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-dot"></span> دليلك الموسمي للزراعة</p>
+          <h1>ازرع ما يناسب<br>موسمك ومكانك.</h1>
+          <p class="hero-description">
+            اختر موقعك وشهر الزراعة ونوع التربة، واكتشف محاصيل تستحق أن تبدأ بها.
+          </p>
+          <a class="text-link" href="#recommendations">اكتشف المحاصيل <span aria-hidden="true">↓</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="sun"></div>
+          <div class="art-label">من الأرض<br>تبدأ الحكاية</div>
+          <div class="plant plant-one"><span class="stem"></span><span class="leaf leaf-left"></span><span class="leaf leaf-right"></span></div>
+          <div class="plant plant-two"><span class="stem"></span><span class="leaf leaf-left"></span><span class="leaf leaf-right"></span></div>
+          <div class="plant plant-three"><span class="stem"></span><span class="leaf leaf-left"></span><span class="leaf leaf-right"></span></div>
+          <div class="ground"></div>
+        </div>
+      </section>
+
+      <section class="planner" aria-labelledby="planner-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">ابدأ من هنا</p>
+            <h2 id="planner-title">خطّط لزراعتك</h2>
+          </div>
+          <span class="step-badge"><span aria-hidden="true">✳</span> ٣ خطوات بسيطة</span>
+        </div>
+
+        <form id="planner-form" class="planner-form">
+          <div class="field location-field">
+            <label for="location-input"><span class="field-number">01</span> أين تزرع؟</label>
+            <div class="input-with-button">
+              <span class="input-icon" aria-hidden="true">⌖</span>
+              <input
+                id="location-input"
+                name="location"
+                type="search"
+                placeholder="ابحث عن مدينة أو منطقة"
+                autocomplete="off"
+                aria-describedby="location-status"
+              >
+              <button id="search-location" class="icon-button" type="button" aria-label="ابحث عن الموقع">
+                <span aria-hidden="true">↵</span>
+              </button>
+            </div>
+            <div class="field-foot">
+              <span id="location-status" class="field-hint" role="status">الموقع اختياري، ويساعد في عرض الطقس.</span>
+              <button id="use-location" class="subtle-button" type="button">استخدم موقعي <span aria-hidden="true">⌖</span></button>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="month-select"><span class="field-number">02</span> متى ستزرع؟</label>
+            <div class="select-wrap">
+              <select id="month-select" name="month"></select>
+              <span class="select-arrow" aria-hidden="true">⌄</span>
+            </div>
+            <p class="field-hint">اختر الشهر المتوقع للزراعة.</p>
+          </div>
+
+          <div class="field">
+            <label for="soil-select"><span class="field-number">03</span> ما نوع تربتك؟</label>
+            <div class="select-wrap">
+              <select id="soil-select" name="soil">
+                <option value="all">لست متأكدًا / كل الأنواع</option>
+                <option value="loamy">طميية أو مزيجية</option>
+                <option value="sandy">رملية جيدة الصرف</option>
+                <option value="clay">طينية</option>
+                <option value="silt">غرينية</option>
+              </select>
+              <span class="select-arrow" aria-hidden="true">⌄</span>
+            </div>
+            <p class="field-hint">يمكنك اختيار «لست متأكدًا» للبدء.</p>
+          </div>
+
+          <button class="submit-button" type="submit">اعرض اقتراحاتي <span aria-hidden="true">←</span></button>
+        </form>
+
+        <div id="weather-panel" class="weather-panel" hidden>
+          <span class="weather-icon" aria-hidden="true">☀</span>
+          <div>
+            <p id="weather-title" class="weather-title"></p>
+            <p id="weather-details" class="weather-details"></p>
+          </div>
+          <span class="weather-source">الطقس عبر Open-Meteo</span>
+        </div>
+      </section>
+
+      <section id="recommendations" class="recommendations" aria-labelledby="recommendations-title">
+        <div class="results-heading">
+          <div>
+            <p class="eyebrow">اقتراحات هذا الموسم</p>
+            <h2 id="recommendations-title">ماذا تزرع؟</h2>
+          </div>
+          <span id="result-count" class="result-count" aria-live="polite"></span>
+        </div>
+        <div id="results" class="crop-grid" aria-live="polite"></div>
+        <p class="disclaimer">
+          <span aria-hidden="true">ⓘ</span>
+          مواعيد الزراعة المعروضة إرشادية لمناخ معتدل وليست توصية محلية مؤكدة. تختلف النوافذ حسب البلد والارتفاع والصنف والصقيع؛ الطقس الحالي لا يغني عن توقعات الموسم. بيانات التربة لا تُستنتج من OpenStreetMap.
+        </p>
+      </section>
+
+      <section id="crop-library" class="crop-library" aria-labelledby="library-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">بياناتك الزراعية</p>
+            <h2 id="library-title">أضف محصولًا جديدًا</h2>
+          </div>
+          <span id="saved-crop-count" class="step-badge">٠ محاصيل محفوظة</span>
+        </div>
+        <p class="library-intro">أضف سجلاتك وعدّلها في أي وقت. ستظهر المحاصيل في الاقتراحات عند مطابقة شهر الزراعة ونوع التربة.</p>
+
+        <form id="crop-form" class="crop-form">
+          <input id="crop-id" name="id" type="hidden">
+          <div class="form-field">
+            <label for="crop-name">اسم المحصول <span aria-hidden="true">*</span></label>
+            <input id="crop-name" name="name" type="text" maxlength="60" required placeholder="مثال: باذنجان">
+          </div>
+          <div class="form-field">
+            <label for="crop-en">الاسم باللغة الإنجليزية <span class="optional">(اختياري)</span></label>
+            <input id="crop-en" name="en" type="text" maxlength="60" dir="auto" placeholder="Eggplant">
+          </div>
+          <div class="form-field">
+            <label for="crop-method">طريقة الزراعة</label>
+            <select id="crop-method" name="method">
+              <option>بذور مباشرة</option>
+              <option>شتلات</option>
+              <option>بذور أو شتلات</option>
+              <option>درنات التقاوي</option>
+              <option>فصوص</option>
+              <option>عُقل أو أقلام</option>
+              <option>أخرى</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="crop-season">المدة حتى الحصاد</label>
+            <input id="crop-season" name="season" type="text" maxlength="40" required placeholder="مثال: ٧٠–٩٠ يومًا">
+          </div>
+          <fieldset class="choice-field">
+            <legend>أشهر الزراعة <span aria-hidden="true">*</span></legend>
+            <div id="planting-months" class="choice-grid months-grid"></div>
+          </fieldset>
+          <fieldset class="choice-field">
+            <legend>أنواع التربة المناسبة <span aria-hidden="true">*</span></legend>
+            <div class="choice-grid soil-grid">
+              <label><input type="checkbox" name="soils" value="loamy"> طميية أو مزيجية</label>
+              <label><input type="checkbox" name="soils" value="sandy"> رملية</label>
+              <label><input type="checkbox" name="soils" value="clay"> طينية</label>
+              <label><input type="checkbox" name="soils" value="silt"> غرينية</label>
+            </div>
+          </fieldset>
+          <div class="form-field form-field-wide">
+            <label for="crop-soil">تفاصيل التربة أو ملاحظات <span class="optional">(اختياري)</span></label>
+            <input id="crop-soil" name="soil" type="text" maxlength="180" placeholder="مثال: تربة عميقة جيدة الصرف وغنية بالمادة العضوية">
+          </div>
+          <div class="form-actions">
+            <button id="save-crop" class="submit-button" type="submit">أضف إلى بياناتي <span aria-hidden="true">←</span></button>
+            <button id="cancel-edit" class="cancel-button" type="button" hidden>إلغاء التعديل</button>
+            <p id="crop-form-status" class="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+
+        <p class="storage-note">تُحفظ البيانات في هذا المتصفح على جهازك فقط. لا يوجد حدّ لعدد السجلات في التطبيق، لكن سعة التخزين المتاحة يحددها المتصفح.</p>
+      </section>
+
+      <section id="how-it-works" class="how-it-works">
+        <div>
+          <p class="eyebrow">بشفافية</p>
+          <h2>المعلومة الأفضل<br>تبدأ من مصدرها.</h2>
+        </div>
+        <div class="info-items">
+          <article class="info-item">
+            <span class="info-icon" aria-hidden="true">⌖</span>
+            <div><h3>الموقع</h3><p>يبحث OpenStreetMap عن المدينة ويحدد إحداثياتها.</p></div>
+          </article>
+          <article class="info-item">
+            <span class="info-icon" aria-hidden="true">☼</span>
+            <div><h3>الطقس</h3><p>يعرض Open-Meteo درجة الحرارة الحالية للموقع المختار.</p></div>
+          </article>
+          <article class="info-item">
+            <span class="info-icon" aria-hidden="true">♧</span>
+            <div><h3>المحاصيل والتربة</h3><p>اقتراحات أولية من تقويم عام؛ اختر نوع التربة بنفسك أو تحقق منها محليًا.</p></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a class="brand footer-brand" href="#"><span class="brand-mark" aria-hidden="true">✳</span><span>ازرع<span class="brand-light">الآن</span></span></a>
+      <p>ازرع بوعي، واترك للطبيعة مجالًا.</p>
+      <p class="attribution">الخرائط © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">مساهمو OpenStreetMap</a></p>
+    </footer>
+  </body>
+</html>
