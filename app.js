@@ -11,6 +11,13 @@ const soilNames = {
 };
 
 const crops = [
+  { name: "ذرة رفيعة", en: "Sorghum", icon: "🌾", months: [6, 7], soils: ["loamy", "sandy", "clay"], season: "3–5 أشهر", method: "بذور مباشرة", soil: "تربة جيدة الصرف؛ من أهم محاصيل الموسم المطري في السودان" },
+  { name: "دخن", en: "Pearl millet", icon: "🌾", months: [6, 7], soils: ["sandy", "loamy"], season: "3–4 أشهر", method: "بذور مباشرة", soil: "يناسب الأراضي الرملية والمناطق الأقل مطرًا" },
+  { name: "قمح", en: "Wheat", icon: "🌾", months: [11, 12], soils: ["loamy", "clay", "silt"], season: "4–5 أشهر", method: "بذور مباشرة", soil: "يزرع شتاءً غالبًا في المشاريع المروية" },
+  { name: "قطن", en: "Cotton", icon: "☁️", months: [6, 7], soils: ["loamy", "clay"], season: "5–6 أشهر", method: "بذور مباشرة", soil: "محصول نقدي مهم؛ تختلف مواعيد زراعته باختلاف نظام الري والمنطقة" },
+  { name: "سمسم", en: "Sesame", icon: "🌱", months: [6, 7], soils: ["sandy", "loamy"], season: "3–4 أشهر", method: "بذور مباشرة", soil: "يناسب الأراضي الخفيفة جيدة الصرف" },
+  { name: "فول سوداني", en: "Groundnut", icon: "🥜", months: [6, 7], soils: ["sandy", "loamy"], season: "3–5 أشهر", method: "بذور مباشرة", soil: "تربة خفيفة مفككة لتسهيل نمو القرون والحصاد" },
+  { name: "كركديه", en: "Roselle", icon: "🌺", months: [6, 7], soils: ["sandy", "loamy"], season: "4–5 أشهر", method: "بذور مباشرة", soil: "يزرع غالبًا مع بداية الموسم المطري" },
   { name: "خس", en: "Lettuce", icon: "🥬", months: [1, 2, 3, 9, 10, 11, 12], soils: ["loamy", "sandy", "silt"], season: "45–70 يومًا", method: "بذور أو شتلات", soil: "تربة خصبة رطبة وجيدة الصرف" },
   { name: "سبانخ", en: "Spinach", icon: "🌿", months: [1, 2, 3, 9, 10, 11, 12], soils: ["loamy", "sandy", "silt"], season: "35–50 يومًا", method: "بذور مباشرة", soil: "تربة غنية ورطبة باعتدال" },
   { name: "جزر", en: "Carrot", icon: "🥕", months: [1, 2, 3, 8, 9, 10, 11, 12], soils: ["sandy", "loamy", "silt"], season: "70–100 يوم", method: "بذور مباشرة", soil: "تربة عميقة مفككة وخالية من الحجارة" },
